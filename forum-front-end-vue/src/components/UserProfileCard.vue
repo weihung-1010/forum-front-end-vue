@@ -3,7 +3,7 @@
       <div class="row no-gutters">
         <div class="col-md-4">
           <img
-            :src="profile.image"
+            :src="profile.image | emptyImage"
             width="300px"
             height="300px"
           />
@@ -19,7 +19,7 @@
               <li><strong>{{profile.Followers.length}}</strong> followers (追隨者)</li>
             </ul>
             <p>
-              <a href="/users/2/edit">
+              <router-link :to="{ name: 'user-edit', params: { id: profile.id } }">
                 <button v-if="profile.isAdmin" type="submit" class="btn btn-primary">edit</button>
                 <template v-else>
                   <button 
@@ -37,7 +37,7 @@
                     追蹤
                   </button>
                 </template>
-              </a>
+              </router-link>
             </p>
           </div>
         </div>
@@ -46,32 +46,35 @@
 </template>
 
 <script>
+import { emptyImageFilter } from "./../utils/mixins";
+
 export default {
-  name: 'UserProfileCard',
+  mixins: [emptyImageFilter],
+  name: "UserProfileCard",
   props: {
     initialProfile: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
-      profile : this.initialProfile
-    }
+      profile: this.initialProfile,
+    };
   },
   methods: {
-    deleteFollow(){
+    deleteFollow() {
       this.profile = {
         ...this.profile,
-        isFollowed : false
-      }
+        isFollowed: false,
+      };
     },
-    addFollow(){
+    addFollow() {
       this.profile = {
         ...this.profile,
-        isFollowed : true
-      }
-    }
-  }
-}
+        isFollowed: true,
+      };
+    },
+  },
+};
 </script>

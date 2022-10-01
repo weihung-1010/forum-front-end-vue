@@ -11,7 +11,7 @@
         class="mr-1"
       >
         <img
-          :src="comment.Restaurant.image"
+          :src="comment.Restaurant.image | emptyImage"
           width="60"
           height="60"
           class="avatar"
@@ -22,7 +22,10 @@
 </template>
 
 <script>
+import { emptyImageFilter } from "./../utils/mixins";
+
 export default {
+  mixins: [emptyImageFilter],
   name: "UserCommentsCard",
   props: {
     comments: {

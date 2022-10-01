@@ -10,7 +10,7 @@
         :key="favoritedRestaurant.id"
       >
         <img
-          :src="favoritedRestaurant.image"
+          :src="favoritedRestaurant.image | emptyImage"
           width="60"
           height="60"
           class="avatar"
@@ -21,7 +21,9 @@
 </template>
 
 <script>
+import { emptyImageFilter } from "./../utils/mixins";
 export default {
+  mixins: [emptyImageFilter],
   name: "UserFavoritedRestaurantsCard",
   props: {
     favoritedRestaurants: {
